@@ -68,6 +68,57 @@ class QuoteSystem {
         this.loadCustomTravelPrice();
         this.loadCustomPureCustomPrice();
         this.loadCustomSemiCustomPrice();
+        this.loadSavedQuote();
+    }
+
+    // 加载保存的报价数据
+    loadSavedQuote() {
+        // 从localStorage加载保存的报价数据
+        const savedQuotes = JSON.parse(localStorage.getItem('savedQuotes')) || [];
+        
+        // 如果有保存的报价数据，加载最新的一条
+        if (savedQuotes.length > 0) {
+            const latestQuote = savedQuotes[savedQuotes.length - 1];
+            
+            // 将数据填充到表单中
+            this.projectId.value = latestQuote.projectId;
+            this.projectName.value = latestQuote.projectName;
+            this.customerName.value = latestQuote.customerName;
+            this.personLevel.value = latestQuote.personLevel;
+            this.personCount.value = latestQuote.personCount;
+            this.personMonths.value = latestQuote.personMonths;
+            this.personCost.value = latestQuote.personCost;
+            this.rentPrice.value = latestQuote.rentPrice;
+            this.rentUnits.value = latestQuote.rentUnits;
+            this.rentMonths.value = latestQuote.rentMonths;
+            this.rentCost.value = latestQuote.rentCost;
+            this.allowancePrice.value = latestQuote.allowancePrice;
+            this.allowanceDays.value = latestQuote.allowanceDays;
+            this.allowanceCost.value = latestQuote.allowanceCost;
+            this.travelPrice.value = latestQuote.travelPrice;
+            this.travelMonths.value = latestQuote.travelMonths;
+            this.travelCost.value = latestQuote.travelCost;
+            this.hardCostTotal.value = latestQuote.hardCostTotal;
+            this.pureCustomMonths.value = latestQuote.pureCustomMonths;
+            this.pureCustomPrice.value = latestQuote.pureCustomPrice;
+            this.semiCustomMonths.value = latestQuote.semiCustomMonths;
+            this.semiCustomPrice.value = latestQuote.semiCustomPrice;
+            this.reuseRatio.value = latestQuote.reuseRatio;
+            this.softCostTotal.value = latestQuote.softCostTotal;
+            this.constraintRatio.value = latestQuote.constraintRatio;
+            this.hardSoftTotal.value = latestQuote.hardSoftTotal;
+            this.contractAmount.value = latestQuote.contractAmount;
+            this.salesRatio.value = latestQuote.salesRatio;
+            this.platformFeeRatio.value = latestQuote.platformFeeRatio;
+            this.taxRate.value = latestQuote.taxRate;
+            this.grossProfit.value = latestQuote.grossProfit;
+            
+            // 更新复用比例显示
+            this.reuseRatioValue.textContent = `${latestQuote.reuseRatio}%`;
+            
+            // 更新利润结构可视化图表
+            this.updateChart();
+        }
     }
 
     // 绑定事件
