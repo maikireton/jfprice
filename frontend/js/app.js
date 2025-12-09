@@ -49,6 +49,7 @@ class QuoteSystem {
         this.contractAmount = document.getElementById('contractAmount');
         this.salesRatio = document.getElementById('salesRatio');
         this.platformFeeRatio = document.getElementById('platformFeeRatio');
+        this.publicAreaRatio = document.getElementById('publicAreaRatio');
         this.taxRate = document.getElementById('taxRate');
         this.grossProfit = document.getElementById('grossProfit');
 
@@ -110,6 +111,7 @@ class QuoteSystem {
             this.contractAmount.value = latestQuote.contractAmount;
             this.salesRatio.value = latestQuote.salesRatio;
             this.platformFeeRatio.value = latestQuote.platformFeeRatio;
+            this.publicAreaRatio.value = latestQuote.publicAreaRatio || 3;
             this.taxRate.value = latestQuote.taxRate;
             this.grossProfit.value = latestQuote.grossProfit;
             
@@ -326,15 +328,17 @@ class QuoteSystem {
         const hardSoftTotal = parseFloat(this.hardSoftTotal.value) || 0;
         const salesRatioValue = parseFloat(this.salesRatio.value) / 100;
         const platformFeeRatioValue = parseFloat(this.platformFeeRatio.value) / 100;
+        const publicAreaRatioValue = parseFloat(this.publicAreaRatio.value) / 100;
         const taxRateValue = parseFloat(this.taxRate.value) / 100;
 
         // 计算各项费用
         const salesCost = contractAmount * salesRatioValue;
         const platformFee = contractAmount * platformFeeRatioValue;
+        const publicAreaCost = contractAmount * publicAreaRatioValue;
         const tax = contractAmount * taxRateValue;
 
-        // 毛利 = 合同金额 - 硬软成本合计 - 销售成本 - 平台费 - 税
-        const grossProfitValue = contractAmount - hardSoftTotal - salesCost - platformFee - tax;
+        // 毛利 = 合同金额 - 硬软成本合计 - 销售成本 - 平台费 - 公摊成本 - 税
+        const grossProfitValue = contractAmount - hardSoftTotal - salesCost - platformFee - publicAreaCost - tax;
         
         this.grossProfit.value = this.formatNumber(grossProfitValue);
         return grossProfitValue;
@@ -347,11 +351,13 @@ class QuoteSystem {
         const softCost = parseFloat(this.softCostTotal.value) || 0;
         const salesRatioValue = parseFloat(this.salesRatio.value) / 100;
         const platformFeeRatioValue = parseFloat(this.platformFeeRatio.value) / 100;
+        const publicAreaRatioValue = parseFloat(this.publicAreaRatio.value) / 100;
         const taxRateValue = parseFloat(this.taxRate.value) / 100;
 
         // 计算各项成本
         const salesCost = contractAmount * salesRatioValue;
         const platformFee = contractAmount * platformFeeRatioValue;
+        const publicAreaCost = contractAmount * publicAreaRatioValue;
         const tax = contractAmount * taxRateValue;
         const grossProfitValue = parseFloat(this.grossProfit.value) || 0;
 
@@ -364,6 +370,7 @@ class QuoteSystem {
         const softPercent = ((softCost / contractAmount) * 100).toFixed(1);
         const salesPercent = ((salesCost / contractAmount) * 100).toFixed(1);
         const platformPercent = ((platformFee / contractAmount) * 100).toFixed(1);
+        const publicAreaPercent = ((publicAreaCost / contractAmount) * 100).toFixed(1);
         const taxPercent = ((tax / contractAmount) * 100).toFixed(1);
         const profitPercent = ((grossProfitValue / contractAmount) * 100).toFixed(1);
 
@@ -395,6 +402,13 @@ class QuoteSystem {
                     <span>平台费: ${platformPercent}%</span>
                     <div style="flex: 1; height: 10px; background-color: #e8e8e8; border-radius: 5px; overflow: hidden;">
                         <div style="height: 100%; width: ${platformPercent}%; background-color: #f5222d;"></div>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 20px; height: 20px; background-color: #13c2c2; border-radius: 4px;"></div>
+                    <span>公摊: ${publicAreaPercent}%</span>
+                    <div style="flex: 1; height: 10px; background-color: #e8e8e8; border-radius: 5px; overflow: hidden;">
+                        <div style="height: 100%; width: ${publicAreaPercent}%; background-color: #13c2c2;"></div>
                     </div>
                 </div>
                 <div style="display: flex; align-items: center; gap: 10px;">
@@ -456,6 +470,7 @@ class QuoteSystem {
             ['合同金额 (含税)', this.contractAmount.value, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
             ['销售比例', this.salesRatio.value + '%', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
             ['平台费比例', this.platformFeeRatio.value + '%', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
+            ['公摊比例', this.publicAreaRatio.value + '%', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
             ['税率', this.taxRate.value + '%', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
             ['毛利', this.grossProfit.value, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
         ];
@@ -505,6 +520,7 @@ class QuoteSystem {
             contractAmount: this.contractAmount.value,
             salesRatio: this.salesRatio.value,
             platformFeeRatio: this.platformFeeRatio.value,
+            publicAreaRatio: this.publicAreaRatio.value,
             taxRate: this.taxRate.value,
             grossProfit: this.grossProfit.value,
             createdAt: new Date().toISOString()
@@ -558,6 +574,7 @@ class QuoteSystem {
             this.constraintRatio.value = '54';
             this.salesRatio.value = '8';
             this.platformFeeRatio.value = '5';
+            this.publicAreaRatio.value = '3';
             this.taxRate.value = '3';
 
             // 重新计算
