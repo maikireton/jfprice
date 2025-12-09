@@ -1,0 +1,305 @@
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Microsoft YaHei', Arial, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* 头部样式 */
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e8e8e8;
+}
+
+header h1 {
+    color: #1890ff;
+    font-size: 28px;
+}
+
+/* 主要内容样式 */
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 章节样式 */
+.section {
+    background-color: #fafafa;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e8e8e8;
+}
+
+.section h2 {
+    color: #2c3e50;
+    font-size: 20px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+/* 子章节样式 */
+.subsection {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 6px;
+    border-left: 4px solid #1890ff;
+}
+
+.subsection h3 {
+    color: #34495e;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+/* 表单样式 */
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 15px;
+    align-items: flex-end;
+}
+
+.form-row.total {
+    background-color: #e6f7ff;
+    padding: 15px;
+    border-radius: 6px;
+    margin-top: 15px;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* 使input和span元素并排显示 */
+.form-group input[type="number"] + span {
+    display: inline-block;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+/* 调整包含百分比的输入组布局 */
+.form-group {
+    position: relative;
+}
+
+.form-group span {
+    position: absolute;
+    right: 10px;
+    top: 38px;
+    pointer-events: none;
+    color: #666;
+}
+
+/* 特殊处理产品复用比例的滑块和显示值 */
+#reuseRatio {
+    margin-bottom: 0;
+    flex: 1;
+}
+
+#reuseRatioValue {
+    position: static;
+    display: inline-block;
+    margin-left: 10px;
+    font-weight: bold;
+    pointer-events: none;
+    color: #1890ff;
+    width: 60px;
+    text-align: center;
+}
+
+/* 为产品复用比例的form-group添加特殊布局 */
+.form-group {
+    position: relative;
+}
+
+/* 调整包含滑块和值的容器 */
+.range-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.range-container input[type="range"] {
+    flex: 1;
+    margin: 0;
+}
+
+.range-container span {
+    flex-shrink: 0;
+    width: 60px;
+    text-align: center;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #555;
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 10px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #1890ff;
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.form-group input[type="range"] {
+    padding: 0;
+    margin-right: 10px;
+}
+
+.form-group.result input {
+    background-color: #e6f7ff;
+    font-weight: 600;
+    color: #1890ff;
+}
+
+.form-group input[readonly] {
+    cursor: not-allowed;
+}
+
+/* 按钮样式 */
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background-color: #1890ff;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #40a9ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(24, 144, 255, 0.3);
+}
+
+.btn-secondary {
+    background-color: #f5f5f5;
+    color: #555;
+    border: 1px solid #d9d9d9;
+}
+
+.btn-secondary:hover {
+    background-color: #e8e8e8;
+    color: #333;
+}
+
+/* 图表样式 */
+.chart {
+    width: 100%;
+    height: 300px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid #e8e8e8;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+        margin: 10px;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .form-group {
+        width: 100%;
+    }
+    
+    .actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+/* 复用比例滑块样式 */
+#reuseRatio {
+    width: 100px;
+}
+
+#reuseRatioValue {
+    font-weight: 600;
+    color: #1890ff;
+}
+
+/* 约束比例样式 */
+#constraintRatio {
+    width: 60px;
+}
+
+/* 输入框与单位组合 */
+.form-group input + span {
+    margin-left: 5px;
+    color: #666;
+}
+
+/* 错误提示样式 */
+.error {
+    color: #ff4d4f;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* 成功提示样式 */
+.success {
+    color: #52c41a;
+    font-size: 12px;
+    margin-top: 5px;
+}
