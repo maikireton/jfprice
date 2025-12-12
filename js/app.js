@@ -593,3 +593,139 @@ class QuoteSystem {
 document.addEventListener('DOMContentLoaded', () => {
     new QuoteSystem();
 });
+
+// Tab切换功能 - 确保DOM加载完成后执行
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    if (tabs.length > 0 && tabContents.length > 0) {
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // 移除所有tab的active类
+                tabs.forEach(t => t.classList.remove('active'));
+                // 移除所有tab-content的active类
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // 为当前点击的tab添加active类
+                tab.classList.add('active');
+                
+                // 显示对应的tab内容
+                const target = tab.getAttribute('data-tab');
+                const targetContent = document.getElementById(target + '-content');
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                }
+            });
+        });
+    }
+});
+
+// 私有化租赁报价系统
+class PrivatizationQuoteSystem {
+    constructor() {
+        this.initializeElements();
+        this.bindEvents();
+    }
+    
+    initializeElements() {
+        // 操作按钮
+        this.exportBtn = document.getElementById('privExportBtn');
+        this.saveBtn = document.getElementById('privSaveBtn');
+        this.clearBtn = document.getElementById('privClearBtn');
+    }
+    
+    bindEvents() {
+        // 保存按钮事件
+        if (this.saveBtn) {
+            this.saveBtn.addEventListener('click', () => this.saveQuote());
+        }
+        
+        // 清空按钮事件
+        if (this.clearBtn) {
+            this.clearBtn.addEventListener('click', () => this.clearForm());
+        }
+        
+        // 导出Excel按钮事件
+        if (this.exportBtn) {
+            this.exportBtn.addEventListener('click', () => this.exportToExcel());
+        }
+    }
+    
+    // 保存报价
+    saveQuote() {
+        const quoteData = {
+            timestamp: new Date().toISOString()
+        };
+        
+        localStorage.setItem('privatizationQuote', JSON.stringify(quoteData));
+        alert('报价已保存');
+    }
+    
+    // 加载报价
+    loadQuote() {
+        const savedData = localStorage.getItem('privatizationQuote');
+        if (savedData) {
+            // 可以根据需要加载并显示保存的信息
+        }
+    }
+    
+    // 清空表单
+    clearForm() {
+        // 重置所有表单输入值（如果有）
+        const inputs = document.querySelectorAll('#privatization-content input[type="text"], #privatization-content input[type="number"]');
+        inputs.forEach(input => {
+            input.value = '';
+        });
+    }
+    
+    // 导出Excel功能
+    exportToExcel() {
+        // 组织导出数据
+        const data = [
+            ['私有化租赁报价'],
+            ['', ''],
+            ['基础租赁方案'],
+            ['合同期限', '3年起'],
+            ['基础费用', '7.5万/年'],
+            ['包含内容', '5路并发、1个场景、1个渠道'],
+            ['', ''],
+            ['初次实施费用'],
+            ['实施费用', '8-10万'],
+            ['包含服务', '部署、定制、测试、培训'],
+            ['', ''],
+            ['后续服务费用'],
+            ['维保费用（3年后）', '0.75万/年'],
+            ['', ''],
+            ['额外费用明细'],
+            ['并发扩容', '1.5万/路/年'],
+            ['场景增加', '2万/场景'],
+            ['渠道增加', '1万/渠道'],
+            ['定制服务', '1200元/天']
+        ];
+        
+        // 将数据转换为CSV格式
+        const csvContent = 'data:text/csv;charset=utf-8,' + data.map(row => row.join(',')).join('\n');
+        
+        // 创建下载链接
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', `私有化租赁报价_${new Date().toISOString().slice(0, 10)}.csv`);
+        document.body.appendChild(link);
+        
+        // 触发下载
+        link.click();
+        
+        // 清理
+        document.body.removeChild(link);
+        
+        alert('报价单已导出为CSV文件！');
+    }
+}
+
+// 初始化私有化租赁报价系统
+document.addEventListener('DOMContentLoaded', () => {
+    const privatizationQuoteSystem = new PrivatizationQuoteSystem();
+    privatizationQuoteSystem.loadQuote();
+});

@@ -4,7 +4,233 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>交付报价系统</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f4;
+            }
+            
+            header {
+                background-color: #4CAF50;
+                color: white;
+                padding: 1em;
+                text-align: center;
+            }
+            
+            /* Tab 样式 */
+            .tab-container {
+                display: flex;
+                background-color: #4CAF50;
+                margin-bottom: 1em;
+                max-width: 1200px;
+                margin: 0 auto 1em;
+                border-radius: 5px 5px 0 0;
+                overflow: hidden;
+            }
+            
+            .tab {
+                padding: 1em 2em;
+                cursor: pointer;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                font-size: 1em;
+                transition: background-color 0.3s;
+            }
+            
+            .tab:hover {
+                background-color: #45a049;
+            }
+            
+            .tab.active {
+                background-color: white;
+                color: #4CAF50;
+                font-weight: bold;
+            }
+            
+            .tab-content {
+                display: none;
+            }
+            
+            .tab-content.active {
+                display: block;
+            }
+            
+            main {
+                padding: 1em;
+                max-width: 1200px;
+                margin: 0 auto;
+                background-color: white;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                border-radius: 0 0 5px 5px;
+            }
+            
+            .section {
+                margin-bottom: 2em;
+                padding: 1em;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                background-color: #f9f9f9;
+            }
+            
+            .subsection {
+                margin: 1em 0;
+                padding: 1em;
+                background-color: #fff;
+                border-radius: 5px;
+                border: 1px solid #eee;
+            }
+            
+            h2 {
+                color: #333;
+                margin-top: 0;
+                font-size: 1.5em;
+            }
+            
+            h3 {
+                color: #666;
+                font-size: 1.2em;
+                margin-top: 0;
+            }
+            
+            .form-row {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1em;
+                margin-bottom: 1em;
+            }
+            
+            .form-group {
+                flex: 1;
+                min-width: 200px;
+                margin-bottom: 0.5em;
+            }
+            
+            .form-group label {
+                display: block;
+                margin-bottom: 0.5em;
+                font-weight: bold;
+                color: #333;
+            }
+            
+            .form-group input {
+                width: calc(100% - 10px);
+                padding: 0.5em;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+            }
+            
+            .form-group.result {
+                background-color: #e8f5e9;
+                padding: 0.5em;
+                border-radius: 4px;
+            }
+            
+            .form-group.result input {
+                background-color: #c8e6c9;
+                font-weight: bold;
+                color: #2e7d32;
+            }
+            
+            .form-row.total {
+                background-color: #e8f5e9;
+                padding: 1em;
+                border-radius: 4px;
+            }
+            
+            .actions {
+                text-align: center;
+                margin-top: 2em;
+            }
+            
+            .btn-primary, .btn-secondary {
+                padding: 0.8em 1.5em;
+                margin: 0 0.5em;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 1em;
+            }
+            
+            .btn-primary {
+                background-color: #4CAF50;
+                color: white;
+            }
+            
+            .btn-primary:hover {
+                background-color: #45a049;
+            }
+            
+            .btn-secondary {
+                background-color: #2196F3;
+                color: white;
+            }
+            
+            .btn-secondary:hover {
+                background-color: #0b7dda;
+            }
+            
+            .chart {
+                height: 400px;
+                width: 100%;
+                margin-top: 2em;
+            }
+            
+            .range-container {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .range-container input[type="range"] {
+                width: calc(100% - 60px);
+            }
+            
+            .range-container span {
+                width: 50px;
+                text-align: right;
+                font-weight: bold;
+            }
+            
+            /* AI能力和支持部分的样式 */
+        .ai-features, .channels, .scenes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        /* 信息文本样式 */
+        .info-text {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        /* 列表样式 */
+        .subsection ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .subsection li {
+            margin-bottom: 5px;
+            line-height: 1.5;
+        }
+            
+            .ai-features span, .channels span, .scenes span {
+                background-color: #e3f2fd;
+                color: #1565c0;
+                padding: 5px 10px;
+                border-radius: 15px;
+                font-size: 0.9em;
+            }
+        </style>
 </head>
 <body>
     <div class="container">
@@ -12,240 +238,344 @@
             <h1>交付报价系统</h1>
         </header>
         
+        <!-- Tab导航 -->
+        <div class="tab-container">
+            <div class="tab active" data-tab="delivery">交付报价</div>
+            <div class="tab" data-tab="privatization">私有化租赁报价</div>
+        </div>
+        
         <main>
-            <!-- 项目基本信息 -->
-            <section class="section">
-                <h2>1. 项目基本信息</h2>
-                <div class="form-group">
-                    <label for="projectId">项目编号</label>
-                    <input type="text" id="projectId" placeholder="自动生成或手动输入">
-                </div>
-                <div class="form-group">
-                    <label for="projectName">项目名称</label>
-                    <input type="text" id="projectName" placeholder="请输入项目名称">
-                </div>
-                <div class="form-group">
-                    <label for="customerName">客户名称</label>
-                    <input type="text" id="customerName" placeholder="请输入客户名称">
-                </div>
-            </section>
-
-            <!-- 硬成本计算 -->
-            <section class="section">
-                <h2>2. 硬成本计算</h2>
-                
-                <!-- 现场人员成本 -->
-                <div class="subsection">
-                    <h3>2.1 现场人员成本</h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="personLevel">人员单价</label>
-                            <input type="number" id="personLevel" value="20000" min="0" step="100">
-                        </div>
-                        <div class="form-group">
-                            <label for="personCount">人数</label>
-                            <input type="number" id="personCount" value="3" min="0" step="0.1">
-                        </div>
-                        <div class="form-group">
-                            <label for="personMonths">月数</label>
-                            <input type="number" id="personMonths" value="5" min="0" step="0.5">
-                        </div>
-                        <div class="form-group result">
-                            <label>现场人员成本</label>
-                            <input type="number" id="personCost" readonly>
-                        </div>
+            <!-- 交付报价 Tab 内容 -->
+            <div id="delivery-content" class="tab-content active">
+                <!-- 项目基本信息 -->
+                <section class="section">
+                    <h2>1. 项目基本信息</h2>
+                    <div class="form-group">
+                        <label for="projectId">项目编号</label>
+                        <input type="text" id="projectId" placeholder="自动生成或手动输入">
                     </div>
-                </div>
-
-                <!-- 房租成本 -->
-                <div class="subsection">
-                    <h3>2.2 房租成本</h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="rentPrice">房租单价</label>
-                            <input type="number" id="rentPrice" value="3000" min="0" step="100">
-                        </div>
-                        <div class="form-group">
-                            <label for="rentUnits">房租套数</label>
-                            <input type="number" id="rentUnits" value="1" min="0" step="1">
-                        </div>
-                        <div class="form-group">
-                            <label for="rentMonths">房租月数</label>
-                            <input type="number" id="rentMonths" value="5" min="0" step="1">
-                        </div>
-                        <div class="form-group result">
-                            <label>房租成本</label>
-                            <input type="number" id="rentCost" readonly>
-                        </div>
+                    <div class="form-group">
+                        <label for="projectName">项目名称</label>
+                        <input type="text" id="projectName" placeholder="请输入项目名称">
                     </div>
-                </div>
-
-                <!-- 补助成本 -->
-                <div class="subsection">
-                    <h3>2.3 补助成本</h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="allowancePrice">补助单价</label>
-                            <input type="number" id="allowancePrice" value="60" min="0" step="10">
-                        </div>
-                        <div class="form-group">
-                            <label for="allowanceDays">补助天数</label>
-                            <input type="number" id="allowanceDays" value="150" min="0" step="1">
-                        </div>
-                        <div class="form-group result">
-                            <label>补助成本</label>
-                            <input type="number" id="allowanceCost" readonly>
-                        </div>
+                    <div class="form-group">
+                        <label for="customerName">客户名称</label>
+                        <input type="text" id="customerName" placeholder="请输入客户名称">
                     </div>
-                </div>
+                </section>
 
-                <!-- 差旅成本 -->
-                <div class="subsection">
-                    <h3>2.4 差旅成本</h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="travelPrice">差旅单价</label>
-                            <input type="number" id="travelPrice" value="1200" min="0" step="100">
-                        </div>
-                        <div class="form-group">
-                            <label for="travelMonths">差旅月数</label>
-                            <input type="number" id="travelMonths" value="5" min="0" step="1">
-                        </div>
-                        <div class="form-group result">
-                            <label>差旅成本</label>
-                            <input type="number" id="travelCost" readonly>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 硬成本小计 -->
-                <div class="form-row total">
-                    <div class="form-group result">
-                        <label>硬成本小计</label>
-                        <input type="number" id="hardCostTotal" readonly>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 软成本计算 -->
-            <section class="section">
-                <h2>3. 软成本计算</h2>
-                
-                <!-- 纯定制人月计算 -->
-                <div id="pureCustomSection" class="subsection" style="display: block;">
-                    <h3>纯定制人月计算</h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="pureCustomMonths">纯定制人月数</label>
-                            <input type="number" id="pureCustomMonths" value="4" min="0" step="1">
-                        </div>
-                        <div class="form-group">
-                            <label for="pureCustomPrice">纯定制人月单价</label>
-                            <input type="number" id="pureCustomPrice" value="20000" min="0" step="1000">
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 半定制人月计算 -->
-                <div id="semiCustomSection" class="subsection" style="display: block;">
-                    <h3>半定制人月计算</h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="semiCustomMonths">半定制人月数</label>
-                            <input type="number" id="semiCustomMonths" value="4" min="0" step="1">
-                        </div>
-                        <div class="form-group">
-                            <label for="semiCustomPrice">半定制人月单价</label>
-                            <input type="number" id="semiCustomPrice" value="15000" min="0" step="1000">
-                        </div>
-                        <div class="form-group">
-                            <label for="reuseRatio">产品复用比例</label>
-                            <div class="range-container">
-                                <input type="range" id="reuseRatio" min="0" max="100" value="25" step="1">
-                                <span id="reuseRatioValue">25%</span>
+                <!-- 硬成本计算 -->
+                <section class="section">
+                    <h2>2. 硬成本计算</h2>
+                    
+                    <!-- 现场人员成本 -->
+                    <div class="subsection">
+                        <h3>2.1 现场人员成本</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="personLevel">人员单价</label>
+                                <input type="number" id="personLevel" value="20000" min="0" step="100">
+                            </div>
+                            <div class="form-group">
+                                <label for="personCount">人数</label>
+                                <input type="number" id="personCount" value="3" min="0" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label for="personMonths">月数</label>
+                                <input type="number" id="personMonths" value="5" min="0" step="0.5">
+                            </div>
+                            <div class="form-group result">
+                                <label>现场人员成本</label>
+                                <input type="number" id="personCost" readonly>
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group result">
-                        <label>软成本小计</label>
-                        <input type="number" id="softCostTotal" readonly>
-                    </div>
-                </div>
-            </section>
 
-            <!-- 合同金额和利润结构 -->
-            <section class="section">
-                <h2>4. 合同金额和利润结构</h2>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="constraintRatio">约束比例 (硬+软成本/合同金额)</label>
-                        <input type="number" id="constraintRatio" value="54" min="0" max="100" step="1">
-                        <span>%</span>
+                    <!-- 房租成本 -->
+                    <div class="subsection">
+                        <h3>2.2 房租成本</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="rentPrice">房租单价</label>
+                                <input type="number" id="rentPrice" value="3000" min="0" step="100">
+                            </div>
+                            <div class="form-group">
+                                <label for="rentUnits">房租套数</label>
+                                <input type="number" id="rentUnits" value="1" min="0" step="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="rentMonths">房租月数</label>
+                                <input type="number" id="rentMonths" value="5" min="0" step="1">
+                            </div>
+                            <div class="form-group result">
+                                <label>房租成本</label>
+                                <input type="number" id="rentCost" readonly>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group result">
-                        <label>硬软成本合计</label>
-                        <input type="number" id="hardSoftTotal" readonly>
+
+                    <!-- 补助成本 -->
+                    <div class="subsection">
+                        <h3>2.3 补助成本</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="allowancePrice">补助单价</label>
+                                <input type="number" id="allowancePrice" value="60" min="0" step="10">
+                            </div>
+                            <div class="form-group">
+                                <label for="allowanceDays">补助天数</label>
+                                <input type="number" id="allowanceDays" value="150" min="0" step="1">
+                            </div>
+                            <div class="form-group result">
+                                <label>补助成本</label>
+                                <input type="number" id="allowanceCost" readonly>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group result">
-                        <label>合同金额 (含税)</label>
-                        <input type="number" id="contractAmount" readonly>
+
+                    <!-- 差旅成本 -->
+                    <div class="subsection">
+                        <h3>2.4 差旅成本</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="travelPrice">差旅单价</label>
+                                <input type="number" id="travelPrice" value="1200" min="0" step="100">
+                            </div>
+                            <div class="form-group">
+                                <label for="travelMonths">差旅月数</label>
+                                <input type="number" id="travelMonths" value="5" min="0" step="1">
+                            </div>
+                            <div class="form-group result">
+                                <label>差旅成本</label>
+                                <input type="number" id="travelCost" readonly>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                
-                <!-- 新增比例设置 -->
-                <div class="subsection">
-                    <h3>4.1 比例设置</h3>
+
+                    <!-- 硬成本小计 -->
+                    <div class="form-row total">
+                        <div class="form-group result">
+                            <label>硬成本小计</label>
+                            <input type="number" id="hardCostTotal" readonly>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 软成本计算 -->
+                <section class="section">
+                    <h2>3. 软成本计算</h2>
+                    
+                    <!-- 纯定制人月计算 -->
+                    <div id="pureCustomSection" class="subsection" style="display: block;">
+                        <h3>纯定制人月计算</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="pureCustomMonths">纯定制人月数</label>
+                                <input type="number" id="pureCustomMonths" value="4" min="0" step="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="pureCustomPrice">纯定制人月单价</label>
+                                <input type="number" id="pureCustomPrice" value="20000" min="0" step="1000">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 半定制人月计算 -->
+                    <div id="semiCustomSection" class="subsection" style="display: block;">
+                        <h3>半定制人月计算</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="semiCustomMonths">半定制人月数</label>
+                                <input type="number" id="semiCustomMonths" value="4" min="0" step="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="semiCustomPrice">半定制人月单价</label>
+                                <input type="number" id="semiCustomPrice" value="15000" min="0" step="1000">
+                            </div>
+                            <div class="form-group">
+                                <label for="reuseRatio">产品复用比例</label>
+                                <div class="range-container">
+                                    <input type="range" id="reuseRatio" min="0" max="100" value="25" step="1">
+                                    <span id="reuseRatioValue">25%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group result">
+                            <label>软成本小计</label>
+                            <input type="number" id="softCostTotal" readonly>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 合同金额和利润结构 -->
+                <section class="section">
+                    <h2>4. 合同金额和利润结构</h2>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="salesRatio">销售比例</label>
-                            <input type="number" id="salesRatio" value="8" min="0" max="100" step="0.1">
+                            <label for="constraintRatio">约束比例 (硬+软成本/合同金额)</label>
+                            <input type="number" id="constraintRatio" value="54" min="0" max="100" step="1">
                             <span>%</span>
                         </div>
-                        <div class="form-group">
-                            <label for="platformFeeRatio">平台费比例</label>
-                            <input type="number" id="platformFeeRatio" value="5" min="0" max="100" step="0.1">
-                            <span>%</span>
-                        </div>
-                        <div class="form-group">
-                            <label for="publicAreaRatio">公摊比例</label>
-                            <input type="number" id="publicAreaRatio" value="3" min="0" max="100" step="0.1">
-                            <span>%</span>
-                        </div>
-                        <div class="form-group">
-                            <label for="taxRate">税率</label>
-                            <input type="number" id="taxRate" value="3" min="0" max="100" step="0.1">
-                            <span>%</span>
+                        <div class="form-group result">
+                            <label>硬软成本合计</label>
+                            <input type="number" id="hardSoftTotal" readonly>
                         </div>
                     </div>
-                </div>
-                
-                <!-- 毛利显示 -->
-                <div class="form-row total">
-                    <div class="form-group result">
-                        <label>毛利</label>
-                        <input type="number" id="grossProfit" readonly>
+                    <div class="form-row">
+                        <div class="form-group result">
+                            <label>合同金额 (含税)</label>
+                            <input type="number" id="contractAmount" readonly>
+                        </div>
                     </div>
-                </div>
-            </section>
+                    
+                    <!-- 新增比例设置 -->
+                    <div class="subsection">
+                        <h3>4.1 比例设置</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="salesRatio">销售比例</label>
+                                <input type="number" id="salesRatio" value="8" min="0" max="100" step="0.1">
+                                <span>%</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="platformFeeRatio">平台费比例</label>
+                                <input type="number" id="platformFeeRatio" value="5" min="0" max="100" step="0.1">
+                                <span>%</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="publicAreaRatio">公摊比例</label>
+                                <input type="number" id="publicAreaRatio" value="3" min="0" max="100" step="0.1">
+                                <span>%</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="taxRate">税率</label>
+                                <input type="number" id="taxRate" value="3" min="0" max="100" step="0.1">
+                                <span>%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 毛利显示 -->
+                    <div class="form-row total">
+                        <div class="form-group result">
+                            <label>毛利</label>
+                            <input type="number" id="grossProfit" readonly>
+                        </div>
+                    </div>
+                </section>
 
-            <!-- 操作按钮 -->
-            <section class="section actions">
-                <button id="calculateBtn" class="btn-primary">计算报价</button>
-                <button id="exportBtn" class="btn-secondary">导出Excel</button>
-                <button id="saveBtn" class="btn-secondary">保存报价</button>
-                <button id="clearBtn" class="btn-secondary">清空表单</button>
-            </section>
+                <!-- 操作按钮 -->
+                <section class="section actions">
+                    <button id="calculateBtn" class="btn-primary">计算报价</button>
+                    <button id="exportBtn" class="btn-secondary">导出Excel</button>
+                    <button id="saveBtn" class="btn-secondary">保存报价</button>
+                    <button id="clearBtn" class="btn-secondary">清空表单</button>
+                </section>
 
-            <!-- 利润结构可视化 -->
-            <section class="section">
-                <h2>5. 利润结构可视化</h2>
-                <div id="profitChart" class="chart"></div>
-            </section>
+                <!-- 利润结构可视化 -->
+                <section class="section">
+                    <h2>5. 利润结构可视化</h2>
+                    <div id="profitChart" class="chart"></div>
+                </section>
+            </div>
+            
+            <!-- 私有化租赁报价 Tab 内容 -->
+            <div id="privatization-content" class="tab-content">
+                <!-- 项目基本信息 -->
+                <section class="section">
+                    <h2>1. 项目基本信息</h2>
+                    <div class="form-group">
+                        <label>项目编号</label>
+                        <div class="info-text">自动生成或手动输入</div>
+                    </div>
+                    <div class="form-group">
+                        <label>项目名称</label>
+                        <div class="info-text">请输入项目名称</div>
+                    </div>
+                    <div class="form-group">
+                        <label>客户名称</label>
+                        <div class="info-text">请输入客户名称</div>
+                    </div>
+                </section>
+
+                <!-- 租赁报价内容 -->
+                <section class="section">
+                    <h2>2. 租赁报价内容</h2>
+                    <div class="subsection">
+                        <h3>基础租赁方案</h3>
+                        <ul>
+                            <li>合同年限：3年起</li>
+                            <li>基础年费用：7.5万/年</li>
+                            <li>包含资源：5路并发，1个场景，1个渠道</li>
+                        </ul>
+                    </div>
+                    <div class="subsection">
+                        <h3>初次实施费用</h3>
+                        <ul>
+                            <li>费用范围：8-10万</li>
+                            <li>包含服务：部署，定制，测试，培训</li>
+                        </ul>
+                    </div>
+                    <div class="subsection">
+                        <h3>后续服务费用</h3>
+                        <ul>
+                            <li>3年后系统归属甲方</li>
+                            <li>维保费用：0.75万/年</li>
+                        </ul>
+                    </div>
+                    <div class="subsection">
+                        <h3>额外费用明细</h3>
+                        <ul>
+                            <li>并发扩容：1.5万/路/年</li>
+                            <li>场景增加：2万/场景</li>
+                            <li>渠道增加：1万/渠道</li>
+                            <li>定制费用：1200元/天</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- AI能力和支持 -->
+                <section class="section">
+                    <h2>3. AI能力和支持</h2>
+                    <div class="subsection">
+                        <h3>AI能力包含</h3>
+                        <div class="ai-features">
+                            <span>TTS</span>
+                            <span>ASR</span>
+                            <span>身份证识别</span>
+                            <span>人脸在框</span>
+                            <span>人脸对比</span>
+                        </div>
+                    </div>
+                    <div class="subsection">
+                        <h3>支持渠道</h3>
+                        <div class="channels">
+                            <span>H5自助</span>
+                            <span>H5&PC(远程)</span>
+                            <span>H5&移动端(远程)</span>
+                            <span>PC端(临柜)</span>
+                        </div>
+                    </div>
+                    <div class="subsection">
+                        <h3>适用场景</h3>
+                        <div class="scenes">
+                            <span>信贷</span>
+                            <span>理财</span>
+                            <span>保险</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 操作按钮 -->
+                <section class="section actions">
+                    <button id="privExportBtn" class="btn-secondary">导出Excel</button>
+                    <button id="privSaveBtn" class="btn-secondary">保存报价</button>
+                    <button id="privClearBtn" class="btn-secondary">清空表单</button>
+                </section>
+            </div>
         </main>
     </div>
 
